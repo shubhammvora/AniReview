@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sign In or Sign Up to AniReview to write community reviews and rate your favorite anime.">
+    <title>Account — AniReview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Unique layout styles for auth page */
+        .auth-container {
+            min-height: calc(100vh - 80px - 250px); /* Fill space between header and footer */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            background: radial-gradient(circle at top right, rgba(79, 174, 234, 0.05), transparent 60%);
+        }
+        .auth-card {
+            background: linear-gradient(145deg, rgba(26, 42, 58, 0.6), rgba(15, 25, 35, 0.8));
+            border: 1px solid rgba(79, 174, 234, 0.15);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+        }
+        .auth-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4FAEEA, #FF9233);
+        }
+        .auth-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(79, 174, 234, 0.1);
+            padding-bottom: 10px;
+        }
+        .auth-tab {
+            background: none;
+            border: none;
+            color: #64748b;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+            outline: none;
+        }
+        .auth-tab.active {
+            color: #F8FAFC;
+        }
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -11px; left: 0; right: 0;
+            height: 3px;
+            background: #4FAEEA;
+            border-radius: 3px 3px 0 0;
+        }
+        .auth-form {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .auth-form.active {
+            display: flex;
+        }
+        .auth-header-logo {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .auth-header-logo img {
+            width: 150px;
+        }
+        .auth-form-footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .auth-form-footer span {
+            color: #4FAEEA;
+            cursor: pointer;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .auth-form-footer span:hover {
+            color: #2d8bc9;
+            text-decoration: underline;
+        }
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #64748b;
+        }
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        .remember-me input {
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            accent-color: #4FAEEA;
+        }
+        .forgot-link {
+            color: #64748b;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .forgot-link:hover {
+            color: #4FAEEA;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER / NAV ============ -->
+    <header id="main-header">
+        <div class="header-logo">
+            <a href="index.html"><img src="logonobg.png" id="logo" alt="AniReview Logo"></a>
+        </div>
+        <nav>
+            <ul id="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#anime-list">Anime List</a></li>
+                <li><a href="index.html#reviews">Reviews</a></li>
+                <li><a href="index.html#about">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <!-- Back to Home -->
+            <a href="index.html" style="text-decoration: none;"><button id="SignIn">Home</button></a>
+        </div>
+        <button id="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- ============ MOBILE NAV OVERLAY ============ -->
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#anime-list">Anime List</a></li>
+            <li><a href="index.html#reviews">Reviews</a></li>
+            <li><a href="index.html#about">About Us</a></li>
+        </ul>
+    </div>
+
+    <!-- ============ AUTH CONTAINER ============ -->
+    <div class="auth-container">
+        <div class="auth-card reveal visible">
+            <div class="auth-header-logo">
+                <img src="logonobg.png" alt="AniReview Logo">
+            </div>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tabLogin">Login</button>
+                <button class="auth-tab" id="tabSignUp">Sign Up</button>
+            </div>
+
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form active" autocomplete="off">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required minlength="6">
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox"> Remember me
+                    </label>
+                    <a href="#" class="forgot-link" id="forgotPassword">Forgot Password?</a>
+                </div>
+
+                <button type="submit" class="submit-btn" style="margin-top: 10px;">
+                    <span class="btn-text">Log In</span>
+                    <span class="btn-icon">→</span>
+                </button>
+
+                <div class="auth-form-footer">
+                    Don't have an account? <span id="linkToSignUp">Sign Up</span>
+                </div>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signUpForm" class="auth-form" autocomplete="off">
+                <div class="form-group">
+                    <label for="signUpName">Full Name</label>
+                    <input type="text" id="signUpName" placeholder="Enter your name" required maxlength="50">
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpEmail">Email Address</label>
+                    <input type="email" id="signUpEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="signUpPassword">Password</label>
+                    <input type="password" id="signUpPassword" placeholder="Create a password" required minlength="6">
+                </div>
+
+                <div class="form-group">
+                    <label for="signUpConfirm">Confirm Password</label>
+                    <input type="password" id="signUpConfirm" placeholder="Confirm your password" required minlength="6">
+                </div>
+
+                <button type="submit" class="submit-btn" style="margin-top: 10px;">
+                    <span class="btn-text">Create Account</span>
+                    <span class="btn-icon">→</span>
+                </button>
+
+                <div class="auth-form-footer">
+                    Already have an account? <span id="linkToLogin">Log In</span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logonobg.png" alt="AniReview Logo" class="footer-logo">
+                <p>Your ultimate anime review hub. Discover, rate, and share.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#anime-list">Anime List</a></li>
+                    <li><a href="index.html#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Genres</h4>
+                <ul>
+                    <li><a href="index.html#anime-list">Action</a></li>
+                    <li><a href="index.html#anime-list">Adventure</a></li>
+                    <li><a href="index.html#anime-list">Comedy</a></li>
+                    <li><a href="index.html#anime-list">Supernatural</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AniReview. Made with ❤️ for anime fans.</p>
+        </div>
+    </footer>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-msg" id="toastMsg">Action successful!</span>
+    </div>
+
+    <!-- Auth Functionality Script -->
+    <script>
+        // Toggle mobile navigation overlay
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav-overlay');
+
+        if (hamburger && mobileNav) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+            });
+            mobileNav.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    mobileNav.classList.remove('active');
+                });
+            });
+        }
+
+        // Header Background on Scroll
+        const header = document.getElementById('main-header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(15, 25, 35, 0.95)';
+                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1a2a3a 0%, #0f1923 100%)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Toast Messages
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = message;
+                if (isError) {
+                    toast.style.background = 'linear-gradient(135deg, #f43f5e, #e11d48)';
+                } else {
+                    toast.style.background = 'linear-gradient(135deg, #10b981, #059669)';
+                }
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.style.background = '';
+                }, 3000);
+            }
+        }
+
+        // Tab Switching & Forms
+        const tabLogin = document.getElementById('tabLogin');
+        const tabSignUp = document.getElementById('tabSignUp');
+        const loginForm = document.getElementById('loginForm');
+        const signUpForm = document.getElementById('signUpForm');
+        const linkToSignUp = document.getElementById('linkToSignUp');
+        const linkToLogin = document.getElementById('linkToLogin');
+
+        function showLogin() {
+            tabLogin.classList.add('active');
+            tabSignUp.classList.remove('active');
+            loginForm.classList.add('active');
+            signUpForm.classList.remove('active');
+        }
+
+        function showSignUp() {
+            tabSignUp.classList.add('active');
+            tabLogin.classList.remove('active');
+            signUpForm.classList.add('active');
+            loginForm.classList.remove('active');
+        }
+
+        tabLogin.addEventListener('click', showLogin);
+        tabSignUp.addEventListener('click', showSignUp);
+        linkToSignUp.addEventListener('click', showSignUp);
+        linkToLogin.addEventListener('click', showLogin);
+
+        // Forgot password placeholder handler
+        document.getElementById('forgotPassword').addEventListener('click', (e) => {
+            e.preventDefault();
+            showToast('Password reset link sent to your email! 📧');
+        });
+
+        // Handle Login Submission (Prepared for MongoDB/Authentication server)
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            // Mock login validation
+            if (email && password) {
+                showToast(`Welcome back! Logged in as ${email} 🎉`);
+                // Clear form
+                loginForm.reset();
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1500);
+            }
+        });
+
+        // Handle Sign Up Submission (Prepared for MongoDB/Authentication server)
+        signUpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signUpName').value.trim();
+            const email = document.getElementById('signUpEmail').value.trim();
+            const password = document.getElementById('signUpPassword').value;
+            const confirm = document.getElementById('signUpConfirm').value;
+
+            if (password !== confirm) {
+                showToast('Passwords do not match!', true);
+                return;
+            }
+
+            // Mock account creation
+            if (name && email && password) {
+                showToast('Account created successfully! Please log in. 🎉');
+                signUpForm.reset();
+                setTimeout(() => {
+                    showLogin();
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

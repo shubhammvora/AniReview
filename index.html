@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AniReview — Your ultimate anime review hub. Discover trending anime, read honest community reviews, and share your own ratings and feedback.">
+    <title>AniReview — Anime Reviews & Ratings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <!-- ============ HEADER / NAV ============ -->
+    <header id="main-header">
+        <div class="header-logo">
+            <img src="logonobg.png" id="logo" alt="AniReview Logo">
+        </div>
+        <nav>
+            <ul id="nav">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#anime-list">Anime List</a></li>
+                <li><a href="#reviews">Reviews</a></li>
+                <li><a href="#about">About Us</a></li>
+            </ul>
+        </nav>
+        <div class="header-actions">
+            <a href="auth.html" style="text-decoration: none;"><button id="SignIn">Sign In</button></a>
+        </div>
+        <button id="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- ============ MOBILE NAV OVERLAY ============ -->
+    <div id="mobile-nav-overlay" class="mobile-nav-overlay">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#anime-list">Anime List</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#about">About Us</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <!-- ============ HERO SLIDER ============ -->
+        <section id="hero" class="slider-wrapper">
+            <div class="slider-track" id="sliderTrack">
+
+                <div class="slide">
+                    <img src="banner_aot.png" alt="Attack on Titan Banner">
+                    <div class="slide-content">
+                        <span class="tag">Trending</span>
+                        <h2>Attack on Titan</h2>
+                        <p>Humanity fights for survival against massive humanoid giants in this dark fantasy epic.</p>
+                        <a href="aot.html" class="slider-btn">Read Reviews</a>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="banner_onepiece.png" alt="One Piece Banner">
+                    <div class="slide-content">
+                        <span class="tag popular">Popular</span>
+                        <h2>One Piece</h2>
+                        <p>Monkey D. Luffy and his pirate crew explore a vast world of oceans and islands to find the ultimate treasure.</p>
+                        <a href="onepiece.html" class="slider-btn">Read Reviews</a>
+                    </div>
+                </div>
+
+                <div class="slide">
+                    <img src="banner_demonslayer.png" alt="Demon Slayer Banner">
+                    <div class="slide-content">
+                        <span class="tag top-rated">Top Rated</span>
+                        <h2>Demon Slayer</h2>
+                        <p>A young man sets out to become a demon slayer after his family is slaughtered and his sister turned into a demon.</p>
+                        <a href="demonslayer.html" class="slider-btn">Read Reviews</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <button class="nav-btn prev-btn" id="prevBtn" aria-label="Previous slide">&#10094;</button>
+            <button class="nav-btn next-btn" id="nextBtn" aria-label="Next slide">&#10095;</button>
+
+            <div class="slider-dots" id="sliderDots">
+                <button class="dot active" data-index="0" aria-label="Go to slide 1"></button>
+                <button class="dot" data-index="1" aria-label="Go to slide 2"></button>
+                <button class="dot" data-index="2" aria-label="Go to slide 3"></button>
+            </div>
+        </section>
+
+        <!-- ============ TRENDING ANIME GRID ============ -->
+        <section id="anime-list" class="section">
+            <div class="section-header">
+                <h1 class="section-title">Trending Anime</h1>
+                <p class="section-subtitle">Discover the most popular anime this season</p>
+            </div>
+
+            <div class="anime-grid" id="animeGrid">
+
+                <div class="anime-card reveal" data-anime="Attack on Titan" data-href="aot.html">
+                    <div class="anime-card-img">
+                        <img src="banner_aot.png" alt="Attack on Titan">
+                        <div class="anime-card-badge">9.0</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>Attack on Titan</h3>
+                        <span class="genre">Action • Dark Fantasy</span>
+                        <div class="star-display" data-rating="5">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="anime-card reveal" data-anime="One Piece" data-href="onepiece.html">
+                    <div class="anime-card-img">
+                        <img src="banner_onepiece.png" alt="One Piece">
+                        <div class="anime-card-badge">9.1</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>One Piece</h3>
+                        <span class="genre">Adventure • Comedy</span>
+                        <div class="star-display" data-rating="5">★★★★★</div>
+                    </div>
+                </div>
+
+                <div class="anime-card reveal" data-anime="Demon Slayer" data-href="demonslayer.html">
+                    <div class="anime-card-img">
+                        <img src="banner_demonslayer.png" alt="Demon Slayer">
+                        <div class="anime-card-badge">8.9</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>Demon Slayer</h3>
+                        <span class="genre">Action • Supernatural</span>
+                        <div class="star-display" data-rating="4">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="anime-card reveal" data-anime="Jujutsu Kaisen" data-href="jjk.html">
+                    <div class="anime-card-img">
+                        <img src="poster_jjk.png" alt="Jujutsu Kaisen">
+                        <div class="anime-card-badge">8.8</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>Jujutsu Kaisen</h3>
+                        <span class="genre">Action • Supernatural</span>
+                        <div class="star-display" data-rating="4">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="anime-card reveal" data-anime="Spy x Family">
+                    <div class="anime-card-img">
+                        <img src="poster_spy.png" alt="Spy x Family">
+                        <div class="anime-card-badge">8.6</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>Spy x Family</h3>
+                        <span class="genre">Comedy • Slice of Life</span>
+                        <div class="star-display" data-rating="4">★★★★☆</div>
+                    </div>
+                </div>
+
+                <div class="anime-card reveal" data-anime="Chainsaw Man">
+                    <div class="anime-card-img">
+                        <img src="poster_chainsaw.png" alt="Chainsaw Man">
+                        <div class="anime-card-badge">8.7</div>
+                    </div>
+                    <div class="anime-card-info">
+                        <h3>Chainsaw Man</h3>
+                        <span class="genre">Action • Horror</span>
+                        <div class="star-display" data-rating="4">★★★★☆</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ============ REVIEWS FEED ============ -->
+        <section id="reviews" class="section">
+            <div class="section-header">
+                <h2 class="section-title">Community Reviews</h2>
+                <p class="section-subtitle">See what the community thinks about their favorite anime</p>
+            </div>
+
+            <div class="reviews-container" id="reviewsContainer">
+                <!-- Reviews will be populated by JS (localStorage + defaults) -->
+            </div>
+        </section>
+
+        <!-- ============ ABOUT US ============ -->
+        <section id="about" class="section">
+            <div class="section-header">
+                <h2 class="section-title">About AniReview</h2>
+                <p class="section-subtitle">Your home for honest anime reviews</p>
+            </div>
+
+            <div class="about-content reveal">
+                <div class="about-text">
+                    <p>AniReview is a community-driven platform where anime fans come together to share their honest opinions, rate their favorite series, and discover new anime to watch.</p>
+                    <p>Whether you're a seasoned otaku or just getting into anime, our community has reviews and recommendations for everyone. We believe every opinion matters — from shonen epics to slice-of-life gems.</p>
+                </div>
+                <div class="about-features">
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐</div>
+                        <h3>Rate & Review</h3>
+                        <p>Share your ratings and detailed reviews for any anime</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔥</div>
+                        <h3>Trending</h3>
+                        <p>Stay updated with the hottest anime this season</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Community</h3>
+                        <p>Join thousands of anime fans sharing their passion</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer id="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="logonobg.png" alt="AniReview Logo" class="footer-logo">
+                <p>Your ultimate anime review hub. Discover, rate, and share.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#anime-list">Anime List</a></li>
+                    <li><a href="#reviews">Reviews</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Genres</h4>
+                <ul>
+                    <li><a href="#anime-list">Action</a></li>
+                    <li><a href="#anime-list">Adventure</a></li>
+                    <li><a href="#anime-list">Comedy</a></li>
+                    <li><a href="#anime-list">Supernatural</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AniReview. Made with ❤️ for anime fans.</p>
+        </div>
+    </footer>
+
+    <!-- Toast notification -->
+    <div id="toast" class="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-msg" id="toastMsg">Review submitted!</span>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

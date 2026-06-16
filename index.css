@@ -1,0 +1,853 @@
+/* ==========================================
+   1. GLOBAL RESET & BASE STYLING
+   ========================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Nunito Sans', sans-serif;
+    background-color: #0f1923;
+    color: #F8FAFC;
+    overflow-x: hidden;
+}
+
+/* ==========================================
+   2. HEADER & NAVIGATION
+   ========================================== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #1a2a3a 0%, #0f1923 100%);
+    padding: 12px 40px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(79, 174, 234, 0.15);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+#logo { width: 180px; height: auto; display: block; }
+
+#nav { display: flex; gap: 40px; list-style: none; }
+
+#nav a {
+    text-decoration: none;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: #a8c4d8;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+#nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #4FAEEA;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+#nav a:hover { color: #F8FAFC; }
+#nav a:hover::after { width: 60%; }
+
+#SignIn {
+    background: linear-gradient(135deg, #FF9233 0%, #ff6b1a 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 15px rgba(255, 146, 51, 0.3);
+}
+
+#SignIn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 146, 51, 0.5);
+}
+
+#SignIn:active { transform: translateY(1px); }
+
+/* Hamburger */
+#hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    z-index: 1100;
+}
+
+#hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #F8FAFC;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+#hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+#hamburger.active span:nth-child(2) { opacity: 0; }
+#hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+
+/* Mobile Nav Overlay */
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100vh;
+    background: rgba(15, 25, 35, 0.97);
+    backdrop-filter: blur(20px);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.mobile-nav-overlay.active { opacity: 1; pointer-events: all; }
+
+.mobile-nav-overlay ul {
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.mobile-nav-overlay a {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: #a8c4d8;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.mobile-nav-overlay a:hover { color: #4FAEEA; }
+
+.mobile-cta {
+    background: linear-gradient(135deg, #FF9233, #ff6b1a) !important;
+    color: white !important;
+    padding: 12px 32px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+/* ==========================================
+   3. HERO SLIDER
+   ========================================== */
+.slider-wrapper {
+    width: 100%;
+    height: 75vh;
+    min-height: 450px;
+    max-height: 650px;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.slide img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(0.6) contrast(1.1);
+    display: block;
+}
+
+.slide::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 75%;
+    background: linear-gradient(to top, rgba(15, 25, 35, 0.98) 0%, rgba(15, 25, 35, 0.5) 50%, transparent 100%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.slide-content {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    max-width: 600px;
+    z-index: 10;
+}
+
+.tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #4FAEEA, #2d8bc9);
+    color: white;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.tag.popular { background: linear-gradient(135deg, #FF9233, #ff6b1a); }
+.tag.top-rated { background: linear-gradient(135deg, #10b981, #059669); }
+
+.slide-content h2 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 52px;
+    margin: 16px 0 12px;
+    color: #F8FAFC;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    line-height: 1.1;
+}
+
+.slide-content p {
+    font-size: 17px;
+    color: #cbd5e1;
+    margin-bottom: 24px;
+    line-height: 1.7;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.slider-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #FF9233, #ff6b1a);
+    color: white;
+    text-decoration: none;
+    border: none;
+    padding: 14px 32px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 20px rgba(255, 146, 51, 0.35);
+}
+
+.slider-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255, 146, 51, 0.5);
+}
+
+/* Nav Buttons */
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(15, 25, 35, 0.6);
+    color: #F8FAFC;
+    border: 2px solid rgba(79, 174, 234, 0.4);
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 20;
+    user-select: none;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    backdrop-filter: blur(10px);
+    transition: all 0.25s ease;
+}
+
+.nav-btn:hover {
+    background: rgba(79, 174, 234, 0.3);
+    border-color: #4FAEEA;
+    box-shadow: 0 0 20px rgba(79, 174, 234, 0.4);
+}
+
+.prev-btn { left: 30px; }
+.next-btn { right: 30px; }
+
+/* Slider Dots */
+.slider-dots {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 20;
+}
+
+.dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.5);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.dot.active {
+    background: #4FAEEA;
+    border-color: #4FAEEA;
+    box-shadow: 0 0 10px rgba(79, 174, 234, 0.6);
+    transform: scale(1.2);
+}
+
+/* ==========================================
+   4. SHARED SECTION STYLING
+   ========================================== */
+.section {
+    padding: 80px 60px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #F8FAFC;
+    margin-bottom: 12px;
+    position: relative;
+    display: inline-block;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #4FAEEA, #FF9233);
+    border-radius: 4px;
+    margin: 12px auto 0;
+}
+
+.section-subtitle {
+    font-size: 17px;
+    color: #64748b;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* ==========================================
+   5. ANIME CARD GRID
+   ========================================== */
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.anime-card {
+    background: linear-gradient(145deg, rgba(26, 42, 58, 0.8), rgba(15, 25, 35, 0.9));
+    border: 1px solid rgba(79, 174, 234, 0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+}
+
+.anime-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 16px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(79, 174, 234, 0.2), transparent, rgba(255, 146, 51, 0.2));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.anime-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(79, 174, 234, 0.1);
+}
+
+.anime-card:hover::before { opacity: 1; }
+
+.anime-card-img {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.anime-card-img img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.anime-card:hover .anime-card-img img { transform: scale(1.08); }
+
+.anime-card-badge {
+    position: absolute;
+    top: 12px; right: 12px;
+    background: linear-gradient(135deg, #FF9233, #ff6b1a);
+    color: white;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(255, 146, 51, 0.4);
+}
+
+.anime-card-info {
+    padding: 20px;
+}
+
+.anime-card-info h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #F8FAFC;
+}
+
+.genre {
+    font-size: 13px;
+    color: #64748b;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.star-display {
+    color: #fbbf24;
+    font-size: 18px;
+    letter-spacing: 2px;
+}
+
+/* ==========================================
+   6. REVIEWS FEED
+   ========================================== */
+.reviews-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.review-card {
+    background: linear-gradient(145deg, rgba(26, 42, 58, 0.6), rgba(15, 25, 35, 0.8));
+    border: 1px solid rgba(79, 174, 234, 0.08);
+    border-radius: 16px;
+    padding: 28px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.review-card::before {
+    content: '"';
+    position: absolute;
+    top: -10px; right: 20px;
+    font-size: 120px;
+    font-family: 'Fredoka', sans-serif;
+    color: rgba(79, 174, 234, 0.06);
+    pointer-events: none;
+}
+
+.review-card:hover {
+    border-color: rgba(79, 174, 234, 0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.review-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    flex-shrink: 0;
+}
+
+.review-meta { flex: 1; }
+
+.review-meta h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: #F8FAFC;
+}
+
+.review-meta .review-anime {
+    font-size: 13px;
+    color: #4FAEEA;
+    font-weight: 600;
+}
+
+.review-stars {
+    color: #fbbf24;
+    font-size: 16px;
+    letter-spacing: 2px;
+}
+
+.review-text {
+    font-size: 15px;
+    color: #94a3b8;
+    line-height: 1.7;
+    margin-bottom: 12px;
+}
+
+.review-date {
+    font-size: 12px;
+    color: #475569;
+}
+
+/* ==========================================
+   7. REVIEW FORM
+   ========================================== */
+.review-form {
+    max-width: 100%;
+    margin: 0 auto;
+    background: linear-gradient(145deg, rgba(26, 42, 58, 0.5), rgba(15, 25, 35, 0.7));
+    border: 1px solid rgba(79, 174, 234, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    backdrop-filter: blur(10px);
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: #a8c4d8;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(15, 25, 35, 0.8);
+    border: 1px solid rgba(79, 174, 234, 0.15);
+    border-radius: 12px;
+    color: #F8FAFC;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #4FAEEA;
+    box-shadow: 0 0 0 3px rgba(79, 174, 234, 0.15);
+}
+
+.form-group textarea { resize: vertical; min-height: 120px; }
+
+.form-group select option { background: #1a2a3a; color: #F8FAFC; }
+
+.char-count {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #475569;
+    margin-top: 6px;
+}
+
+/* Star Rating Interactive */
+.star-rating {
+    display: flex;
+    gap: 8px;
+}
+
+.star-rating .star {
+    font-size: 36px;
+    color: #334155;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.star-rating .star:hover,
+.star-rating .star.hovered { color: #fbbf24; transform: scale(1.15); }
+.star-rating .star.selected { color: #fbbf24; }
+
+/* Submit Button */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #4FAEEA 0%, #2d8bc9 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(79, 174, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    transition: left 0.5s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(79, 174, 234, 0.45);
+}
+
+.submit-btn:hover::before { left: 100%; }
+
+.btn-icon {
+    font-size: 22px;
+    transition: transform 0.3s ease;
+}
+
+.submit-btn:hover .btn-icon { transform: translateX(4px); }
+
+/* ==========================================
+   8. ABOUT SECTION
+   ========================================== */
+.about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.about-text {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.about-text p {
+    font-size: 17px;
+    color: #94a3b8;
+    line-height: 1.8;
+    margin-bottom: 16px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.about-features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.feature-card {
+    background: linear-gradient(145deg, rgba(26, 42, 58, 0.5), rgba(15, 25, 35, 0.7));
+    border: 1px solid rgba(79, 174, 234, 0.08);
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(79, 174, 234, 0.2);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.feature-icon { font-size: 40px; margin-bottom: 16px; }
+
+.feature-card h3 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #F8FAFC;
+}
+
+.feature-card p { font-size: 14px; color: #64748b; line-height: 1.6; }
+
+/* ==========================================
+   9. FOOTER
+   ========================================== */
+footer {
+    background: linear-gradient(180deg, #0a1118 0%, #060d13 100%);
+    border-top: 1px solid rgba(79, 174, 234, 0.08);
+    padding: 60px 60px 0;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+}
+
+.footer-logo { width: 120px; margin-bottom: 16px; }
+
+.footer-brand p { font-size: 14px; color: #64748b; line-height: 1.6; max-width: 300px; }
+
+.footer-links h4 {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    color: #F8FAFC;
+    margin-bottom: 16px;
+}
+
+.footer-links ul { list-style: none; }
+
+.footer-links li { margin-bottom: 10px; }
+
+.footer-links a {
+    text-decoration: none;
+    color: #64748b;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover { color: #4FAEEA; }
+
+.footer-bottom {
+    border-top: 1px solid rgba(79, 174, 234, 0.08);
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-bottom p { font-size: 13px; color: #475569; }
+
+/* ==========================================
+   10. TOAST NOTIFICATION
+   ========================================== */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 16px 28px;
+    border-radius: 12px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.4);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 2000;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast-icon { font-size: 20px; }
+
+/* ==========================================
+   11. SCROLL ANIMATIONS
+   ========================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================
+   12. RESPONSIVE DESIGN
+   ========================================== */
+@media (max-width: 1024px) {
+    .anime-grid { grid-template-columns: repeat(2, 1fr); }
+    .section { padding: 60px 40px; }
+    .slide-content h2 { font-size: 40px; }
+}
+
+@media (max-width: 768px) {
+    header { padding: 12px 20px; }
+    nav, .header-actions { display: none; }
+    #hamburger { display: flex; }
+    #logo { width: 140px; }
+
+    .slider-wrapper { height: 60vh; min-height: 350px; }
+    .slide-content { left: 30px; bottom: 60px; max-width: 85%; }
+    .slide-content h2 { font-size: 32px; }
+    .slide-content p { font-size: 14px; }
+
+    .section { padding: 50px 24px; }
+    .section-title { font-size: 30px; }
+
+    .anime-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .reviews-container { grid-template-columns: 1fr; }
+
+    .review-form { padding: 28px 20px; }
+
+    .about-features { grid-template-columns: 1fr; gap: 16px; }
+
+    .footer-content { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+    .footer-brand p { max-width: 100%; }
+    footer { padding: 40px 24px 0; }
+}
+
+@media (max-width: 480px) {
+    .anime-grid { grid-template-columns: 1fr; }
+    .slide-content h2 { font-size: 26px; }
+    .nav-btn { width: 40px; height: 40px; font-size: 16px; }
+    .prev-btn { left: 12px; }
+    .next-btn { right: 12px; }
+}
