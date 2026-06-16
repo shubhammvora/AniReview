@@ -63,89 +63,6 @@ AniReview/
 └── assets/
 ```
 
-## ⚡ Installation
-
-### 1. Clone Repository
-
-```bash
-git clone https://github.com/yourusername/anireview.git
-cd anireview
-```
-
-### 2. Install Dependencies
-
-```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-
-Create a `.env` file:
-
-```env
-MONGO_URI=your_mongodb_connection_string
-```
-
-### 4. Start Backend Server
-
-```bash
-node server.js
-```
-
-Server will run on:
-
-```bash
-http://localhost:5000
-```
-
-### 5. Run Frontend
-
-Open the project using VS Code Live Server or any local web server.
-
-```bash
-http://localhost:5500
-```
-
----
-
-## 📡 API Endpoints
-
-### Get All Reviews
-
-```http
-GET /reviews
-```
-
-### Get Reviews By Anime
-
-```http
-GET /reviews/:anime
-```
-
-Example:
-
-```http
-GET /reviews/One Piece
-```
-
-### Submit Review
-
-```http
-POST /reviews
-```
-
-Request Body:
-
-```json
-{
-  "name": "Shubham",
-  "anime": "One Piece",
-  "rating": 5,
-  "review": "Peak Fiction"
-}
-```
-
----
 
 ## 🎯 Future Improvements
 
@@ -160,16 +77,6 @@ Request Body:
 
 ---
 
-## 📸 Screenshots
-
-Add screenshots of:
-
-* Home Page
-* Anime Detail Page
-* Review System
-* MongoDB Database
-
----
 
 ## 👨‍💻 Author
 
